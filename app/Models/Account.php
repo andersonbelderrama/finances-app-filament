@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Account extends Model
 {
@@ -21,7 +22,9 @@ class Account extends Model
     {
         parent::boot();
         static::addGlobalScope(function ($query) {
-            $query->where('accounts.user_id', auth()->user()->id);
+            if (Auth::check()) {
+                $query->where('accounts.user_id', Auth::user()->id);
+            }
         });
     }
 

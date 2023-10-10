@@ -18,7 +18,7 @@ class AccountFactory extends Factory
     public function definition(): array
     {
         return [
-            'bank_name' => $this->faker->word(),
+            'bank_name' => 'Banco ' . $this->faker->word(),
             'bank_branch' => $this->faker->numberBetween(1000, 9999),
             'account_number' =>  $this->faker->numberBetween(1000, 9999),
             'account_name' => $this->faker->name(),

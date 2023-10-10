@@ -18,8 +18,8 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->unique()->word(),
-            'description' => $this->faker->text(),
+            'name' => 'Categoria ' . $this->faker->unique()->word(),
+            'description' => $this->faker->sentence(2),
             'user_id' => User::all()->random()->id,
         ];
     }

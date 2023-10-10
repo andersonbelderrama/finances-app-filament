@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 
 class Transaction extends Model
 {
@@ -16,7 +17,9 @@ class Transaction extends Model
     {
         parent::boot();
         static::addGlobalScope(function ($query) {
-            $query->where('transactions.user_id', auth()->user()->id);
+            if (Auth::check()) {
+                $query->where('transactions.user_id', Auth::user()->id);
+            }
         });
     }
 
