@@ -13,7 +13,7 @@
                             <div class="{{  $item->percentage > 100 ? 'from-rose-500 to-red-500'
                                             : ($item->percentage > 80 && $item->percentage < 100 ? 'from-yellow-500 to-amber-500'
                                             : 'from-emerald-500 to-green-500') }}
-                                            bg-gradient-to-r from-primary-500 text-xs leading-none text-center font-medium p-1 text-gray-950"
+                                            bg-gradient-to-r text-xs leading-none text-center font-medium p-1 text-gray-950"
                                             style="width: {{ $item->percentage > 100 ? 100 : $item->percentage }}%">
                                 {{ $item->percentage }}%
                             </div>

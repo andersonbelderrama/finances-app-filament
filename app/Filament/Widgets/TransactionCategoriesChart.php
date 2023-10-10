@@ -40,15 +40,11 @@ class TransactionCategoriesChart extends ChartWidget
                 'display' => true, // Exibe a legenda
                 'position' => 'bottom', // Posição da legenda (pode ser 'top', 'bottom', 'left' ou 'right')
             ],
-
-
-
         ],
     ];
 
     protected function getData(): array
     {
-
         $data = $this->getTransactionPerCategory();
 
         return [
@@ -72,13 +68,10 @@ class TransactionCategoriesChart extends ChartWidget
 
     protected function getTransactionPerCategory(): array
     {
-
         $labels = [];
         $quantidades = [];
         $backgroundColors = [];
 
-
-        // Mapeie classes do Tailwind CSS para valores de cores
         $tailwindColors = [
             'rgba(239, 68, 68, 1)',    // Red
             'rgba(255, 193, 7, 1)',    // Yellow
@@ -97,23 +90,18 @@ class TransactionCategoriesChart extends ChartWidget
             'rgba(255, 99, 132, 1)',  // Maroon
         ];
 
-
         $result = Transaction::select('categories.name as category', DB::raw('COUNT(*) as quantidade'))
                             ->join('categories', 'transactions.category_id', '=', 'categories.id')
-                            ->where('transactions.user_id', auth()->user()->id)
                             ->groupBy('categories.name')
                             ->get()
                             ->toArray();
 
-        // Índice para rastrear a próxima cor a ser usada
         $colorIndex = 0;
 
         foreach ($result as $item) {
             $labels[] = $item['category'];
             $quantidades[] = $item['quantidade'];
-            // Use a próxima cor na sequência
             $backgroundColors[] = $tailwindColors[$colorIndex];
-            // Avance para a próxima cor na sequência ou volte ao início
             $colorIndex = ($colorIndex + 1) % count($tailwindColors);
         }
 
@@ -122,7 +110,5 @@ class TransactionCategoriesChart extends ChartWidget
             'quantidades' => $quantidades,
             'backgroundColors' => $backgroundColors
         ];
-
     }
-
 }
