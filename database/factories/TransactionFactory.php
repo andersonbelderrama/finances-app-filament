@@ -19,7 +19,7 @@ class TransactionFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::inRandomOrder()->first();
+        $user = User::all()->random();
         $category = Category::where('user_id', $user->id)->inRandomOrder()->first();
         $account = Account::where('user_id', $user->id)->inRandomOrder()->first();
 
